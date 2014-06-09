@@ -140,56 +140,20 @@ AnalyserDisplay.Levels.prototype.draw = function() {
     var freqByteData = new Uint8Array(frequencyBinCount);
     this.node.getByteFrequencyData(freqByteData);
 
-    var magnitude = 0;
-    for (var i = 0; i < frequencyBinCount; i++) {
-        magnitude += freqByteData[i] / 256;
+    var length = freqByteData.length,
+        total = 0;
+    for (var i = 0; i < length; i++) {
+        total += freqByteData[i];
     }
-    var percent = magnitude / frequencyBinCount;
+    var average = total / length;
+    var percent = average / 128;
 
-    var gradient = this.context.createLinearGradient(0, 0, width * percent, height);
+    var gradient = this.context.createLinearGradient(0, 0, width * percent, 0);
     gradient.addColorStop(0, 'hsl(128, 100%, 50%)');
     gradient.addColorStop(1, 'hsl(360, 100%, 50%)');
 
     this.context.fillStyle = gradient;
     this.context.fillRect(0, 0, width * percent, height);
 };
-
-/*
-
-AnalyserDisplay.HTMLView = function(node, el) {
-    this.el = el;
-    this.node = node;
-};
-
-AnalyserDisplay.HTMLView.prototype.draw = function() {
-    var frequencyBinCount = this.node.frequencyBinCount;
-
-    var freqByteData = new Uint8Array(frequencyBinCount);
-    this.node.getByteFrequencyData(freqByteData);
-
-    var magnitude = 0;
-    for (var i = 0; i < frequencyBinCount; i++) {
-        magnitude += freqByteData[i] / 256;
-    }
-
-    var hue = magnitude / frequencyBinCount * 360;
-    var percent = Math.floor(magnitude / frequencyBinCount * 100);
-
-    //console.log(magnitude)
-    
-    //magnitude = Math.min(100, Math.max(0, 100 - magnitude / 10));
-
-    //this.el.style.background = '-webkit-gradient(linear, left bottom, left top, color-stop(' +
-    //    (magnitude - 10) + '%,rgba(0,0,0,1.0)), color-stop(' +
-    //    (magnitude) + '%,rgba(0,0,0,0)))';
-    this.el.style.background = '-webkit-gradient(linear, left bottom, left top, ' +
-        'color-stop(0%,hsl(0,100%,50%)), ' +
-        //'color-stop(' + (magnitude*0.33) + '%,rgba(255,255,0,1)), ' +
-        //'color-stop(' + (magnitude*0.66) + '%,rgba(255,0,0,1)), ' +
-        'color-stop('+percent+'%,hsl('+hue+',100%,50%)), ' +
-        'color-stop('+100+'%,rgba(255,255,255,0))' +
-    ')';
-};
-*/
 
 module.exports = AnalyserDisplay;

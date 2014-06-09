@@ -157,7 +157,7 @@ UIComponents.ToggleButton = function(parent, labelA, labelB, fnA, fnB, context, 
  * Dropdown
  */
 
-UIComponents.Dropdown = function(parent, options, fn, context) {
+UIComponents.Dropdown = function(parent, options, fn, context, selectedValue, title) {
     var dd = document.createElement('select');
     dd.className = 'Dropdown';
     for(var key in options) {
@@ -165,6 +165,9 @@ UIComponents.Dropdown = function(parent, options, fn, context) {
         o.setAttribute('value', options[key]);
         o.innerHTML = key;
         dd.appendChild(o);
+        if(options[key] === selectedValue) {
+            o.setAttribute('selected', 'selected');
+        }
     }
     if(typeof fn === 'function') {
         dd.addEventListener('change', function() {
@@ -172,6 +175,12 @@ UIComponents.Dropdown = function(parent, options, fn, context) {
         });
     }
     if(parent) {
+        if(title) {
+            var h = document.createElement('h3');
+            h.className = 'Dropdown-title';
+            h.innerHTML = title;
+            parent.appendChild(h);
+        }
         parent.appendChild(dd);
     }
     this.el = dd;

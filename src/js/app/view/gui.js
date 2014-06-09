@@ -31,7 +31,7 @@ GUI.prototype.init = function(audioContext) {
 	this.demoHolder = document.createElement('div');
 	this.el.appendChild(this.demoHolder);
 
-	this.filter();
+	this.analyser();
 };
 
 GUI.prototype.reverb = function() {

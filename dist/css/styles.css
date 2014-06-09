@@ -74,6 +74,7 @@ h3{font-size:1.6em}
 .Button--default.is-pressed,.Button--default:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.2);box-shadow:inset 0 1px 2px rgba(0,0,0,.2);background-color:#ccc}
 .Button--small{font-size:1em;padding:.35em .75em}
 .Dropdown{display:inline-block;font-size:2.5em;margin:1em 0;min-width:800px;max-width:100%}
+.Dropdown-title{font-size:1.5em;margin:1em 0 -1em}
 .Dropdown--small{font-size:1em;min-width:300px;width:22%;margin:.75em 0}
 .Loader{display:inline-block;width:62px;height:50px;position:absolute;top:50%;left:50%;margin-top:-25px;margin-left:-31px;-webkit-transition:opacity .8s ease;transition:opacity .8s ease}
 .Loader-label{text-align:center}

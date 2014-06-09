@@ -8,22 +8,39 @@ var AbstractDemo = require('./components/abstract-demo.js'),
 function Analyser(el, audioContext) {
     AbstractDemo.call(this, el, audioContext);
 
-    this.sound = this.audio.add(Model.getFile('Piano1').data);
+    //this.sound = 
+    this.audio.add(Model.getFile('Piano1').data);
+    this.audio.add(Model.getFile('Drums').data);
+    this.audio.add(Model.getFile('Bass').data);
+    // 1024 fft size is 512 parts
     this.node = this.audio.nodeFactory.analyser(1024);
-    this.sound.addNode(this.node);
+    //this.sound.addNode(this.node);
+
+    this.audio._gain.connect(this.node);
+    this.node.connect(this.audio.context.destination);
 
     var display = new AnalyserDisplay();
+
+    var panelFreq = new UIComponents.Panel(el, 'Frequencies');
+    this.sliderSmoothing = new UIComponents.Slider(panelFreq.el, 'Smoothing', 0, 1, 0.01, this.node.smoothingTimeConstant, this.updateSmoothing, this);
+    this.dropdownFFT = new UIComponents.Dropdown(panelFreq.el, {
+        '64': 64,
+        '128': 128,
+        '256': 256,
+        '512': 512,
+        '1024': 1024,
+        '2048': 2048
+    }, this.updateFFTSize, this, this.node.fftSize, 'FFT Size');
+
+    var freq = display.addFreq(this.node);
+    freq.background = 'rgb(0,0,0)';
+    panelFreq.append(freq.canvas);
 
     var panelWave = new UIComponents.Panel(el, 'Wave');
     var wave = display.addWave(this.node);
     wave.thickness = 1;
     wave.background = 'rgb(0,0,0)';
     panelWave.append(wave.canvas);
-
-    var panelFreq = new UIComponents.Panel(el, 'Frequencies');
-    var freq = display.addFreq(this.node);
-    freq.background = 'rgb(0,0,0)';
-    panelFreq.append(freq.canvas);
 
     var panelLevels = new UIComponents.Panel(el, 'Levels');
     var levels = display.addLevels(this.node);
@@ -33,6 +50,14 @@ function Analyser(el, audioContext) {
 
 Analyser.prototype = Object.create(AbstractDemo.prototype);
 Analyser.prototype.constructor = Analyser;
+
+Analyser.prototype.updateSmoothing = function(value) {
+    this.node.smoothingTimeConstant = parseFloat(value, 10);
+};
+
+Analyser.prototype.updateFFTSize = function(value) {
+    this.node.fftSize = parseInt(value);
+};
 
 Analyser.prototype.destroy = function() {
     AbstractDemo.prototype.destroy.call(this);
