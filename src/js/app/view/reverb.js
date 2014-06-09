@@ -7,7 +7,7 @@ var AbstractDemo = require('./components/abstract-demo.js'),
 function Reverb(el, audioContext) {
 	AbstractDemo.call(this, el, audioContext);
 
-	this.sound = this.audio.add(Model.getFile('Piano1').data);
+	this.sound = this.audio.add(Model.getFile('Piano').data);
 	this.node = this.audio.nodeFactory.reverb();
 	this.sound.addNode(this.node);
 

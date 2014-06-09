@@ -2,6 +2,5 @@
     "Drums": { "url": "audio/DRUMS", "loop": true, "data": null },
     "Bass": { "url": "audio/DOUBLE_BASS", "loop": true, "data": null },
     "Congas": { "url": "audio/CONGAS", "loop": true, "data": null },
-    "Piano1": { "url": "audio/PIANO_MIC_1", "loop": true, "data": null },
-    "Piano2": { "url": "audio/PIANO_MIC_2", "loop": true, "data": null }
+    "Piano": { "url": "audio/PIANO_MIC_1", "loop": true, "data": null }
 }

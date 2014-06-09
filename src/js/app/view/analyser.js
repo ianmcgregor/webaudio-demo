@@ -9,7 +9,7 @@ function Analyser(el, audioContext) {
     AbstractDemo.call(this, el, audioContext);
 
     //this.sound = 
-    this.audio.add(Model.getFile('Piano1').data);
+    this.audio.add(Model.getFile('Piano').data);
     this.audio.add(Model.getFile('Drums').data);
     this.audio.add(Model.getFile('Bass').data);
     // 1024 fft size is 512 parts
