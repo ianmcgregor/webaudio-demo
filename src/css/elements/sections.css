@@ -13,3 +13,7 @@ body {
 h3 {
     font-size: 1.6em;
 }
+
+canvas {
+    max-width: 100%;
+}

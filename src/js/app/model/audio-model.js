@@ -4,6 +4,7 @@ var audioFiles = require('../config/audio-files.json'),
 	impulse = require('../config/impulse-response.json');
 
 var model = {
+    extension: '',
 	audioFiles: audioFiles,
 	getFile: function(key) {
 		return model.audioFiles[key];

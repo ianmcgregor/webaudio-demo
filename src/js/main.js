@@ -32,10 +32,11 @@ App.prototype.load = function() {
 	this.loader.webAudioContext = this.audio.webAudioContext;
 	this.loader.crossOrigin = true;
 
+	Model.extension = this.audio.getExtension();
 	var files = Model.audioFiles;
 	for (var i in files) {
 		var file = files[i];
-		file.url = file.url + this.audio.getExtension();
+		file.url = file.url + Model.extension;
 		this.loader.add(file.url);
 	}
 

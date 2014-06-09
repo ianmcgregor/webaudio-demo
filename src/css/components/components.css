@@ -1,7 +1,8 @@
 
 
-.track {
-	padding: 0 10px;
+.Title {
+	padding-top: 0.5em;
+  text-align: center;
 }
 
 /**
@@ -24,9 +25,10 @@
 
 .Slider {
 	display: inline-block;
-	min-width: 300px;
+	min-width: 240px;
 	width: 22%;
 	padding: 0.5em 0;
+  max-width: 100%;
 }
 
 .Slider-label {
@@ -50,8 +52,7 @@
 .Slider--large {
 	font-size: 1.5em;
 	padding: 1em 0;
-	min-width: 800px;
-  max-width: 100%;
+  width: 800px;
 }
 
 .Slider--large > .Slider-label {
@@ -59,7 +60,7 @@
 }
 
 .Slider--large > .Slider-input {
-	min-width: 82%;
+	min-width: 78%;
 }
 
 /**
@@ -113,7 +114,7 @@
     display: inline-block;
     font-size: 2.5em;
     margin: 1em 0;
-    min-width: 800px;
+    width: 800px;
     max-width: 100%;
 }
 

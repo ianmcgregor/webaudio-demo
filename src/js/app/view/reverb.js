@@ -37,7 +37,7 @@ Reverb.prototype.updateImpulseResponse = function(value) {
 			this.generateImpulseResponse();
 			break;
 		default:
-			this.load(value, this.applyImpulse);
+			this.load(value + Model.extension, this.applyImpulse);
 			break;
 	}
 };
