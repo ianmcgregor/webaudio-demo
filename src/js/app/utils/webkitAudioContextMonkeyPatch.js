@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 /* Copyright 2013 Chris Wilson
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,7 +53,7 @@ OscillatorNode.setWaveTable() is aliased to setPeriodicWave().
   'use strict';
 
   function fixSetTarget(param) {
-    if (!param)	// if NYI, just return
+    if (!param)    // if NYI, just return
       return;
     if (!param.setTargetValueAtTime)
       param.setTargetValueAtTime = param.setTargetAtTime; 
@@ -173,3 +174,4 @@ OscillatorNode.setWaveTable() is aliased to setPeriodicWave().
   }
 }(window));
 
+/* jshint ignore:end */

@@ -1,0 +1,94 @@
+/*! Libraries */
+ /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,progress,video{display:inline-block;vertical-align:baseline}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+a{background:0 0}
+a:active,a:hover{outline:0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:700}
+dfn{font-style:italic}
+h1{font-size:2em}
+mark{background:#ff0;color:#000}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+hr{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;height:0}
+pre{overflow:auto}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
+button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
+button{overflow:visible}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+input{line-height:normal}
+input[type=checkbox],input[type=radio]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}
+input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
+legend{border:0;padding:0}
+textarea{overflow:auto}
+optgroup{font-weight:700}
+table{border-collapse:collapse;border-spacing:0}
+td,th{padding:0}
+/*! suit-base v0.5.0 | MIT License | github.com/suitcss */
+:root{--background-base:inherit;--color-base:inherit;--font-base:16px sans-serif;--link-color-base:#069;--link-color-hover-base:var(--link-color-base)}
+html{background:var(--background-base);color:var(--color-base)}
+a{color:var(--link-color-base);text-decoration:none}
+a:active,a:focus,a:hover{color:var(--link-color-hover-base);text-decoration:underline}
+blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,p,pre{margin:0}
+button{background:0 0;border:0;padding:0}
+fieldset{border:0;margin:0;padding:0}
+iframe{border:0}
+ol,ul{margin:0;list-style:none;padding:0}
+[tabindex="-1"]:focus{outline:0!important}
+/*! Elements */
+html{height:100%;font:62.5% sans-serif}
+body{height:100%;margin:0;padding:0;background-color:#FFF;color:#000;line-height:1.5}
+h3{font-size:1.6em}
+/*! Components */
+ /*! suit-button v3.2.0 | MIT License | github.com/suitcss */
+:root{--border-width-Button:1px;--border-color-Button:currentcolor;--color-Button:inherit;--font-Button:inherit;--padding-Button:.4em .75em;--opacity-Button-disabled:.6}
+.Button{-webkit-appearance:none;background:0 0;border-color:var(--border-color-Button);border-style:solid;border-width:var(--border-width-Button);-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:var(--color-Button);cursor:pointer;display:inline-block;font:var(--font-Button);line-height:normal;margin:0;padding:var(--padding-Button);position:relative;text-align:center;text-decoration:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;white-space:normal}
+.Button::-moz-focus-inner{border:0;padding:0}
+.Button:active,.Button:focus,.Button:hover{text-decoration:none}
+.Button.is-disabled,.Button:disabled{cursor:default;opacity:var(--opacity-Button-disabled)}
+.track{padding:0 10px}
+.Panel{display:inline-block;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;width:98%;margin:1%;padding:10px;background:#eee;border:1px solid #ddd}
+.Slider{display:inline-block;min-width:300px;width:22%;padding:.5em 0}
+.Slider-label{display:inline-block;min-width:20%}
+.Slider-input{vertical-align:middle;min-width:65%}
+.Slider-output{padding-left:5px}
+.Slider--large{font-size:1.5em;padding:1em 0;min-width:800px;max-width:100%}
+.Slider--large>.Slider-label{min-width:10%}
+.Slider--large>.Slider-input{min-width:85%}
+.Button--default{border-color:#d9d9d9 #d9d9d9 #ccc;border-radius:2px;color:#444;background-color:#ddd;font-size:1.5em;padding:.75em 1.5em}
+.Button--default.is-pressed,.Button--default:active,.Button--default:focus,.Button--default:hover{border-color:#c6c6c6 #c6c6c6 #bbb;color:#222;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.2);background-color:#f5f5f5}
+.Button--default:focus{border-color:#069;outline:0}
+.Button--default.is-pressed,.Button--default:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.2);box-shadow:inset 0 1px 2px rgba(0,0,0,.2);background-color:#ccc}
+.Button--small{font-size:1em;padding:.35em .75em}
+.Dropdown{display:inline-block;font-size:2.5em;margin:1em 0;min-width:800px;max-width:100%}
+.Dropdown--small{font-size:1em;min-width:300px;width:22%;margin:.75em 0}
+.Loader{display:inline-block;width:62px;height:50px;position:absolute;top:50%;left:50%;margin-top:-25px;margin-left:-31px;-webkit-transition:opacity .8s ease;transition:opacity .8s ease}
+.Loader-label{text-align:center}
+.Loader li{background-color:#ddd;width:8px;height:50px;display:inline-block;margin-right:4px}
+@-webkit-keyframes loader-anim{0%{height:10px}
+50%{height:50px}
+100%{height:10px}}
+@keyframes loader-anim{0%{height:10px}
+50%{height:50px}
+100%{height:10px}}
+.Loader li:first-child{-webkit-animation:loader-anim 1s ease-in-out infinite 0s;animation:loader-anim 1s ease-in-out infinite 0s}
+.Loader li:nth-child(2){-webkit-animation:loader-anim 1s ease-in-out infinite -.2s;animation:loader-anim 1s ease-in-out infinite -.2s}
+.Loader li:nth-child(3){-webkit-animation:loader-anim 1s ease-in-out infinite -.4s;animation:loader-anim 1s ease-in-out infinite -.4s}
+.Loader li:nth-child(4){-webkit-animation:loader-anim 1s ease-in-out infinite -.6s;animation:loader-anim 1s ease-in-out infinite -.6s}
+.Loader li:nth-child(5){-webkit-animation:loader-anim 1s ease-in-out infinite -.8s;animation:loader-anim 1s ease-in-out infinite -.8s}
+.Loader li:last-child{width:1px;background-color:transparent;margin-right:0}
+.Loader--hidden{opacity:0}
+.hidden{display:none}

@@ -1,0 +1,202 @@
+
+
+.track {
+	padding: 0 10px;
+}
+
+/**
+ * Panel
+ */
+
+.Panel {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 98%;
+    margin: 1%;
+    padding: 10px;
+    background: #eee;
+    border: 1px solid #ddd;
+}
+
+/**
+ * Slider
+ */
+
+.Slider {
+	display: inline-block;
+	min-width: 300px;
+	width: 22%;
+	padding: 0.5em 0;
+}
+
+.Slider-label {
+	display: inline-block;
+	min-width: 20%;
+}
+
+.Slider-input {
+	vertical-align: middle;
+	min-width: 65%;
+}
+
+.Slider-output {
+	padding-left: 5px;
+}
+
+/**
+ * Modifier: large slider
+ */
+
+.Slider--large {
+	font-size: 1.5em;
+	padding: 1em 0;
+	min-width: 800px;
+  max-width: 100%;
+}
+
+.Slider--large > .Slider-label {
+	min-width: 10%;
+}
+
+.Slider--large > .Slider-input {
+	min-width: 85%;
+}
+
+/**
+ * Modifier: default buttons
+ */
+
+.Button--default {
+  border-color: #d9d9d9 #d9d9d9 #ccc;
+  border-radius: 2px;
+  color: #444;
+  background-color: #ddd;
+  font-size: 1.5em;
+  padding: 0.75em 1.5em;
+}
+
+.Button--default:hover,
+.Button--default:focus,
+.Button--default:active,
+.Button--default.is-pressed {
+  border-color: #c6c6c6 #c6c6c6 #bbb;
+  color: #222;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  background-color: #f5f5f5;
+}
+
+.Button--default:focus {
+  border-color: #069;
+  outline: 0;
+}
+
+.Button--default:active,
+.Button--default.is-pressed {
+  box-shadow: inset 0 1px 2px rgba(0,0,0, 0.2);
+  background-color: #ccc;
+}
+
+/**
+ * Modifier: small buttons
+ */
+
+.Button--small {
+  font-size: 1em;
+  padding: 0.35em 0.75em;
+}
+
+/**
+ * Dropdwon
+ */
+
+.Dropdown {
+    display: inline-block;
+    font-size: 2.5em;
+    margin: 1em 0;
+    min-width: 800px;
+    max-width: 100%;
+}
+
+/**
+ * Modifier: small
+ */
+
+.Dropdown--small {
+    font-size: 1em;
+    min-width: 300px;
+    width: 22%;
+    margin: 0.75em 0em;
+}
+
+/**
+ * Loader
+ */
+
+.Loader {
+    display: inline-block;
+    width: 62px;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -31px;
+    transition: opacity 0.8s ease;
+}
+
+.Loader-bars {
+  
+}
+
+.Loader-label {
+  text-align: center;
+}
+
+.Loader li {
+  background-color: #ddd;
+  width: 8px;
+  height: 50px;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+@keyframes loader-anim {
+  0%{
+    height: 10px;
+  }
+  50%{
+    height: 50px;
+  }
+  100%{
+    height: 10px;
+  }
+}
+
+.Loader li:first-child {
+  animation: loader-anim 1s ease-in-out infinite 0s;
+}
+.Loader li:nth-child(2) {
+  animation: loader-anim 1s ease-in-out infinite -0.2s;
+}
+.Loader li:nth-child(3) {
+  animation: loader-anim 1s ease-in-out infinite -0.4s;
+}
+.Loader li:nth-child(4) {
+  animation: loader-anim 1s ease-in-out infinite -0.6s;
+}
+.Loader li:nth-child(5) {
+  animation: loader-anim 1s ease-in-out infinite -0.8s;
+}
+.Loader li:last-child {
+  width: 1px;
+  background-color: transparent;
+  margin-right: 0;
+}
+
+.Loader--hidden {
+  opacity: 0;
+}
+
+.hidden {
+    display: none;
+}
