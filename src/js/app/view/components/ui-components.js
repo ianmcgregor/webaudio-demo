@@ -79,9 +79,7 @@ UIComponents.Panel = function(parent, title) {
         parent.appendChild(this.el);
     }
     if(title) {
-        var h = document.createElement('h3');
-        h.innerHTML = title;
-        this.el.appendChild(h);
+        this.title = title;
     }
 };
 
@@ -94,6 +92,16 @@ UIComponents.Panel.prototype.remove = function() {
         this.el.parentElement.removeChild(this.el);
     }
 };
+
+Object.defineProperty(UIComponents.Panel.prototype, 'title', {
+    set: function(value) {
+        if(!this.titleEl) {
+            this.titleEl = document.createElement('h3');
+            this.el.insertBefore(this.titleEl, this.el.firstChild);
+        }
+        this.titleEl.innerHTML = value;
+    }
+});
 
 /*
  * Button

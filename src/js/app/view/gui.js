@@ -7,7 +7,8 @@ var LoadingBar = require('./components/loading-bar.js'),
 	Analyser = require('./analyser.js'),
 	MultiTrack = require('./multi-track.js'),
 	PanThreeD = require('./pan-three-d.js'),
-	Filter = require('./filter.js');
+	Filter = require('./filter.js'),
+	Microphone = require('./microphone.js');
 
 function GUI(el) {
 	this.el = el;
@@ -24,6 +25,7 @@ GUI.prototype.init = function(audioContext) {
 	new UIComponents.Button(this.menu.el, 'MultiTrack', this.multiTrack, this, Keyboard.THREE);
 	new UIComponents.Button(this.menu.el, 'Pan', this.pan, this, Keyboard.FOUR);
 	new UIComponents.Button(this.menu.el, 'Filter', this.filter, this, Keyboard.FIVE);
+	new UIComponents.Button(this.menu.el, 'Microphone', this.microphone, this, Keyboard.SIX);
 
 	this.controls = new UIComponents.Panel(this.el);
 	this.playButton = new UIComponents.ToggleButton(this.controls.el, 'PLAY', 'PAUSE', this.play, this.pause, this, Keyboard.SPACEBAR);
@@ -31,7 +33,7 @@ GUI.prototype.init = function(audioContext) {
 	this.demoHolder = document.createElement('div');
 	this.el.appendChild(this.demoHolder);
 
-	this.analyser();
+	this.microphone();
 };
 
 GUI.prototype.reverb = function() {
@@ -59,12 +61,24 @@ GUI.prototype.filter = function() {
 	this.demo = new Filter(this.demoHolder, this.audioContext);
 };
 
-GUI.prototype.clearDemo = function() {
+GUI.prototype.microphone = function() {
+	this.clearDemo(true);
+	this.demo = new Microphone(this.demoHolder, this.audioContext);
+};
+
+GUI.prototype.clearDemo = function(hideControls) {
 	if(this.demo) {
 		this.demo.destroy();
 	}
 	this.demoHolder.innerHTML = '';
 	this.playButton.reset();
+
+	if(hideControls) {
+		this.controls.el.classList.add('hidden');
+	}
+	else {
+		this.controls.el.classList.remove('hidden');
+	}
 };
 
 GUI.prototype.play = function() {

@@ -30,3 +30,14 @@ To install dependencies:
 $ npm install
 $ bower install
 ```
+
+
+### TODO:
+* Microphone input
+* DynamicsCompressorNode
+* OscillatorNode
+* WaveShaperNode
+* ScriptProcessorNode
+
+### IE polyfill:
+https://github.com/g200kg/WAAPISim
