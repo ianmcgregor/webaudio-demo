@@ -391,6 +391,15 @@ WebAudio.Effects = function(context) {
         value = parseFloat(value, 10);
         quality = parseFloat(quality, 10);
         gain = parseFloat(gain, 10);
+        // Get back to the frequency value between min and max.
+        filterNode.frequency.value = getFrequency(value);
+
+        //filterNode.Q.value = quality;
+        //filterNode.gain.value = gain;
+    }
+
+    // get frequency by passing number from 0 to 1
+    function getFrequency(value) {
         // Clamp the frequency between the minimum value (40 Hz) and half of the
         // sampling rate.
         var minValue = 40;
@@ -400,10 +409,7 @@ WebAudio.Effects = function(context) {
         // Compute a multiplier from 0 to 1 based on an exponential scale.
         var multiplier = Math.pow(2, numberOfOctaves * (value - 1.0));
         // Get back to the frequency value between min and max.
-        filterNode.frequency.value = maxValue * multiplier;
-
-        //filterNode.Q.value = quality;
-        //filterNode.gain.value = gain;
+        return maxValue * multiplier;
     }
 
     return {
@@ -416,7 +422,8 @@ WebAudio.Effects = function(context) {
         'setCameraPosition': setCameraPosition,
         'pan': panXYZ,
         'doppler': doppler,
-        'filter': filter
+        'filter': filter,
+        'getFrequency': getFrequency
     };
 };
 

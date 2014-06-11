@@ -144,8 +144,8 @@ AssetLoader.Loader.prototype = {
                 self.onError.dispatch();
             });
         };
-        request.onerror = function() {
-            self.onError.dispatch();
+        request.onerror = function(e) {
+            self.onError.dispatch(e);
         };
         request.send();
     },

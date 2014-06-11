@@ -34,7 +34,7 @@ Micophone.prototype.getMicrophone = function() {
 
 Micophone.prototype.onSuccess = function(stream) {
     var mediaStreamSource = this.audio.context.createMediaStreamSource( stream );
-        mediaStreamSource.connect( this.audio._gain );
+        mediaStreamSource.connect(this.audio._gain);
 
     this.node = this.audio.nodeFactory.analyser(1024);
     this.audio._gain.connect(this.node);
@@ -53,7 +53,7 @@ Micophone.prototype.onSuccess = function(stream) {
 Micophone.prototype.onError = function(e) {
     console.log(e);
     if(e.name === 'PermissionDeniedError') {
-        this.displayError('ERROR: Permission denied. Go to "chrome://settings/content > media > manage exceptions" to undo in chrome.');
+        this.displayError('ERROR: Permission denied. You can undo this by clicking the camera icon with the red cross in the address bar.');
     }
     else {
         this.displayError('ERROR: ' + e.message);
@@ -68,18 +68,6 @@ Micophone.prototype.displayError = function(msg) {
         this.pnlError.el.classList.add('Panel--error');
     }
     this.pnlError.title = msg;
-};
-
-Micophone.prototype.play = function() {
-    this.getMicrophone();
-};
-
-Micophone.prototype.updateSmoothing = function(value) {
-    this.node.smoothingTimeConstant = parseFloat(value, 10);
-};
-
-Micophone.prototype.updateFFTSize = function(value) {
-    this.node.fftSize = parseInt(value);
 };
 
 Micophone.prototype.destroy = function() {

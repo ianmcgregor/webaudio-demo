@@ -8,7 +8,8 @@ var LoadingBar = require('./components/loading-bar.js'),
 	MultiTrack = require('./multi-track.js'),
 	PanThreeD = require('./pan-three-d.js'),
 	Filter = require('./filter.js'),
-	Microphone = require('./microphone.js');
+	Microphone = require('./microphone.js'),
+	Oscillator = require('./oscillator.js');
 
 function GUI(el) {
 	this.el = el;
@@ -26,6 +27,7 @@ GUI.prototype.init = function(audioContext) {
 	new UIComponents.Button(this.menu.el, 'Pan', this.pan, this, Keyboard.FOUR);
 	new UIComponents.Button(this.menu.el, 'Filter', this.filter, this, Keyboard.FIVE);
 	new UIComponents.Button(this.menu.el, 'Microphone', this.microphone, this, Keyboard.SIX);
+	new UIComponents.Button(this.menu.el, 'Oscillator', this.oscillator, this, Keyboard.SEVEN);
 
 	this.controls = new UIComponents.Panel(this.el);
 	this.playButton = new UIComponents.ToggleButton(this.controls.el, 'PLAY', 'PAUSE', this.play, this.pause, this, Keyboard.SPACEBAR);
@@ -33,7 +35,7 @@ GUI.prototype.init = function(audioContext) {
 	this.demoHolder = document.createElement('div');
 	this.el.appendChild(this.demoHolder);
 
-	this.microphone();
+	this.oscillator();
 };
 
 GUI.prototype.reverb = function() {
@@ -64,6 +66,11 @@ GUI.prototype.filter = function() {
 GUI.prototype.microphone = function() {
 	this.clearDemo(true);
 	this.demo = new Microphone(this.demoHolder, this.audioContext);
+};
+
+GUI.prototype.oscillator = function() {
+	this.clearDemo(true);
+	this.demo = new Oscillator(this.demoHolder, this.audioContext);
 };
 
 GUI.prototype.clearDemo = function(hideControls) {

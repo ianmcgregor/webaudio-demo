@@ -2,7 +2,10 @@
   "name": "webaudio-demo",
   "version": "0.0.1",
   "description": "A simple demo/library of the WebAudio API.",
-  "keywords": ["webaudio", "audio"],
+  "keywords": [
+    "webaudio",
+    "audio"
+  ],
   "main": "src/js/main.js",
   "scripts": {
     "test": "karma start"
@@ -38,5 +41,8 @@
     "karma-mocha": "^0.1.3",
     "mocha": "^1.20.1",
     "vinyl-source-stream": "^0.1.1"
+  },
+  "dependencies": {
+    "signals": "^1.0.0"
   }
 }

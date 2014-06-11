@@ -19,7 +19,13 @@ var model = {
         'peaking': 5,
         'notch': 6,
         'allpass': 7
-	}
+	},
+    wave: {
+        'sine': 'sine',
+        'square': 'square',
+        'sawtooth': 'sawtooth',
+        'triangle': 'triangle'
+    }
 };
 
 module.exports = model;
