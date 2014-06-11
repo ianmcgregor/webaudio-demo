@@ -69,7 +69,7 @@ GUI.prototype.microphone = function() {
 };
 
 GUI.prototype.oscillator = function() {
-	this.clearDemo(true);
+	this.clearDemo();
 	this.demo = new Oscillator(this.demoHolder, this.audioContext);
 };
 
