@@ -1,6 +1,7 @@
 'use strict';
 
-require('./webkitAudioContextMonkeyPatch.js');
+// webkitAudioContextMonkeyPatch is breaking Firefox
+//require('./webkitAudioContextMonkeyPatch.js');
 
 var WebAudio = require('./web-audio.js'),
 	HTMLAudio = require('./html-audio.js'),

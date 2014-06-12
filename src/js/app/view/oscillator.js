@@ -34,13 +34,13 @@ Oscillator.prototype.updateType = function(value) {
 
 Oscillator.prototype.updateFreq = function(value) {
     if(!this.osc) { return; }
-    this.osc.frequency.value = this.audio.effects.getFrequency(value);
+    this.osc.frequency.value = this.audio.helpers.getFrequency(value);
 };
 
 Oscillator.prototype.play = function() {
     this.osc = this.audio.context.createOscillator();
     this.osc.type = this.dropdownType.value;
-    this.osc.frequency.value = this.audio.effects.getFrequency(this.sliderFreq.value);
+    this.osc.frequency.value = this.audio.helpers.getFrequency(this.sliderFreq.value);
     this.audio._gain.value = 0.2;
     this.osc.connect(this.audio._gain);
     this.osc.start(0);

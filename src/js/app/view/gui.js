@@ -8,8 +8,9 @@ var LoadingBar = require('./components/loading-bar.js'),
 	MultiTrack = require('./multi-track.js'),
 	PanThreeD = require('./pan-three-d.js'),
 	Filter = require('./filter.js'),
-	Microphone = require('./microphone.js'),
-	Oscillator = require('./oscillator.js');
+	MicrophoneInput = require('./microphone-input.js'),
+	Oscillator = require('./oscillator.js'),
+	Microphone = require('../utils/microphone.js');
 
 function GUI(el) {
 	this.el = el;
@@ -26,11 +27,15 @@ GUI.prototype.init = function(audioContext) {
 	new UIComponents.Button(this.menu.el, 'MultiTrack', this.multiTrack, this, Keyboard.THREE);
 	new UIComponents.Button(this.menu.el, 'Pan', this.pan, this, Keyboard.FOUR);
 	new UIComponents.Button(this.menu.el, 'Filter', this.filter, this, Keyboard.FIVE);
-	new UIComponents.Button(this.menu.el, 'Microphone', this.microphone, this, Keyboard.SIX);
+	new UIComponents.Button(this.menu.el, 'Microphone', this.microphoneInput, this, Keyboard.SIX);
 	new UIComponents.Button(this.menu.el, 'Oscillator', this.oscillator, this, Keyboard.SEVEN);
 
 	this.controls = new UIComponents.Panel(this.el);
 	this.playButton = new UIComponents.ToggleButton(this.controls.el, 'PLAY', 'PAUSE', this.play, this.pause, this, Keyboard.SPACEBAR);
+	this.microphone = new Microphone();
+	if(this.microphone.isSupported) {
+		this.micButton = new UIComponents.ToggleButton(this.controls.el, 'MIC ON', 'MIC OFF', this.connectMicrophone, this.disconnectMicrophone, this, Keyboard.M);
+	}
 
 	this.demoHolder = document.createElement('div');
 	this.el.appendChild(this.demoHolder);
@@ -49,7 +54,7 @@ GUI.prototype.analyser = function() {
 };
 
 GUI.prototype.multiTrack = function() {
-	this.clearDemo();
+	this.clearDemo(true);
 	this.demo = new MultiTrack(this.demoHolder, this.audioContext);
 };
 
@@ -63,22 +68,49 @@ GUI.prototype.filter = function() {
 	this.demo = new Filter(this.demoHolder, this.audioContext);
 };
 
-GUI.prototype.microphone = function() {
-	this.clearDemo(true);
-	this.demo = new Microphone(this.demoHolder, this.audioContext);
+GUI.prototype.microphoneInput = function() {
+	this.clearDemo(true, true);
+	this.demo = new MicrophoneInput(this.demoHolder, this.audioContext);
 };
 
 GUI.prototype.oscillator = function() {
-	this.clearDemo();
+	this.clearDemo(true);
 	this.demo = new Oscillator(this.demoHolder, this.audioContext);
 };
 
-GUI.prototype.clearDemo = function(hideControls) {
+GUI.prototype.connectMicrophone = function() {
+	this.microphone.onConnected.add(this.microphoneConnected, this);
+    this.microphone.onDenied.add(this.microphoneError, this);
+    this.microphone.onError.add(this.microphoneError, this);
+    this.microphone.connect();
+};
+
+GUI.prototype.microphoneConnected = function() {
+	this.demo.connectMicrophone(this.microphone);
+};
+
+GUI.prototype.microphoneError = function() {
+	this.micButton.reset();
+};
+
+GUI.prototype.disconnectMicrophone = function() {
+	this.demo.disconnectMicrophone();
+};
+
+GUI.prototype.clearDemo = function(hideMicrophone, hideControls) {
 	if(this.demo) {
 		this.demo.destroy();
 	}
 	this.demoHolder.innerHTML = '';
 	this.playButton.reset();
+	this.micButton.reset();
+
+	if(hideMicrophone) {
+		this.micButton.el.classList.add('hidden');
+	}
+	else {
+		this.micButton.el.classList.remove('hidden');
+	}
 
 	if(hideControls) {
 		this.controls.el.classList.add('hidden');

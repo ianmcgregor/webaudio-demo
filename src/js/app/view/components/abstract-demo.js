@@ -31,8 +31,20 @@ AbstractDemo.prototype = {
 			loader.loadWebAudio(this.audio.context);
 		return loader;
 	},
+	connectMicrophone: function(microphone) {
+		this.microphone = microphone;
+		this.audio.helpers.createMicrophoneSource(microphone.stream, this.node);
+		this.node.connect(this.audio._gain);
+	},
+	disconnectMicrophone: function() {
+		if(this.microphone) {
+			this.microphone.disconnect();
+			this.microphone = null;
+		}
+	},
 	destroy: function() {
 		this.pause();
+		this.disconnectMicrophone();
 	}
 };
 

@@ -26,7 +26,7 @@ Filter.prototype.updateFilterType = function() {
 };
 
 Filter.prototype.update = function() {
-    this.audio.effects.filter(this.node, this.sliderFreq.value, this.sliderQual.value, this.sliderGain.value);
+    this.audio.helpers.filter(this.node, this.sliderFreq.value, this.sliderQual.value, this.sliderGain.value);
 };
 
 Filter.prototype.destroy = function() {

@@ -11,7 +11,7 @@ function WebAudio(context) {
     this._loop = false;
     this._playing = false;
     this._nodeFactory = new WebAudio.NodeFactory(this.context);
-    this._effects = new WebAudio.Effects(this.context);
+    this._helpers = new WebAudio.Helpers(this.context);
 }
 
 WebAudio.prototype = {
@@ -101,9 +101,9 @@ Object.defineProperty(WebAudio.prototype, 'nodeFactory', {
     }
 });
 
-Object.defineProperty(WebAudio.prototype, 'effects', {
+Object.defineProperty(WebAudio.prototype, 'helpers', {
     get: function() {
-        return this._effects;
+        return this._helpers;
     }
 });
 
@@ -313,7 +313,7 @@ WebAudio.NodeFactory = function(context) {
         createImpulseResponse: function(seconds, decay, reverse) {
             // generate a reverb effect
             seconds = seconds || 1;
-            decay = decay || 0;
+            decay = decay || 5;
             reverse = !!reverse;
 
             var numChannels = 2,
@@ -347,10 +347,10 @@ WebAudio.NodeFactory = function(context) {
 };
 
 /*
- * Effects
+ * Helpers
  */
 
-WebAudio.Effects = function(context) {
+WebAudio.Helpers = function(context) {
 
     function ramp(param, value, duration) {
         param.linearRampToValueAtTime(value, context.currentTime + duration);
@@ -412,6 +412,19 @@ WebAudio.Effects = function(context) {
         return maxValue * multiplier;
     }
 
+    function createMicrophoneSource(stream, connectTo) {
+        var mediaStreamSource = context.createMediaStreamSource( stream );
+        if(connectTo) {
+            mediaStreamSource.connect(connectTo);
+        }
+        // HACK: stops moz garbage collection killing the stream
+        // see https://support.mozilla.org/en-US/questions/984179
+        if(navigator.mozGetUserMedia) {
+            window.horrible_hack_for_mozilla = mediaStreamSource;
+        }
+        return mediaStreamSource;
+    }
+
     return {
         fade: function(gainNode, value, duration) {
             ramp(gainNode.gain, value, duration);
@@ -423,7 +436,8 @@ WebAudio.Effects = function(context) {
         'pan': panXYZ,
         'doppler': doppler,
         'filter': filter,
-        'getFrequency': getFrequency
+        'getFrequency': getFrequency,
+        'createMicrophoneSource': createMicrophoneSource
     };
 };
 
