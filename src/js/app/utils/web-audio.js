@@ -336,11 +336,28 @@ WebAudio.NodeFactory = function(context) {
             fftSize = fftSize || 1024;
             var node = context.createAnalyser();
             node.smoothingTimeConstant = 0.85;
-            // fftSize: 32 - 2048 (pow 2)
+            // resolution fftSize: 32 - 2048 (pow 2)
+            // frequencyBinCount will be half this value
             node.fftSize = fftSize;
-            //node.frequencyBinCount = node.fftSize / 2;
             //node.minDecibels = -100;
             //node.maxDecibels = -30;
+            return node;
+        },
+        compressor: function() {
+            // lowers the volume of the loudest parts of the signal and raises the volume of the softest parts
+            var node = context.createDynamicsCompressor();
+            // min decibels to start compressing at from -100 to 0
+            node.threshold.value = -24;
+            // decibel value to start curve to compressed value from 0 to 40
+            node.knee.value = 30;
+            // amount of change per decibel from 1 to 20
+            node.ratio.value = 12;
+            // gain reduction currently applied by compressor from -20 to 0
+            // node.reduction.value
+            // seconds to reduce gain by 10db from 0 to 1 - how quickly signal adapted when volume increased
+            node.attack.value = 0.0003;
+            // seconds to increase gain by 10db from 0 to 1 - how quickly signal adapted when volume redcuced
+            node.release.value = 0.25;
             return node;
         }
     };
