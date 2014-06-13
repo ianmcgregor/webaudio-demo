@@ -11,7 +11,8 @@ var LoadingBar = require('./components/loading-bar.js'),
 	MicrophoneInput = require('./microphone-input.js'),
 	Oscillator = require('./oscillator.js'),
 	Microphone = require('../utils/microphone.js'),
-	Compressor = require('./compressor.js');
+	Compressor = require('./compressor.js'),
+	Distortion = require('./distortion.js');
 
 function GUI(el) {
 	this.el = el;
@@ -31,6 +32,7 @@ GUI.prototype.init = function(audioContext) {
 	new UIComponents.Button(this.menu.el, 'Microphone', this.microphoneInput, this, Keyboard.SIX);
 	new UIComponents.Button(this.menu.el, 'Oscillator', this.oscillator, this, Keyboard.SEVEN);
 	new UIComponents.Button(this.menu.el, 'Compressor', this.compressor, this, Keyboard.EIGHT);
+	new UIComponents.Button(this.menu.el, 'Distortion', this.distortion, this, Keyboard.NINE);
 
 	this.controls = new UIComponents.Panel(this.el);
 	this.playButton = new UIComponents.ToggleButton(this.controls.el, 'PLAY', 'PAUSE', this.play, this.pause, this, Keyboard.SPACEBAR);
@@ -81,8 +83,13 @@ GUI.prototype.oscillator = function() {
 };
 
 GUI.prototype.compressor = function() {
-	this.clearDemo(true);
+	this.clearDemo();
 	this.demo = new Compressor(this.demoHolder, this.audioContext);
+};
+
+GUI.prototype.distortion = function() {
+	this.clearDemo();
+	this.demo = new Distortion(this.demoHolder, this.audioContext);
 };
 
 GUI.prototype.connectMicrophone = function() {

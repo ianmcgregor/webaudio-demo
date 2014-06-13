@@ -2,6 +2,7 @@
 
 var WebAudio = require('../../utils/web-audio.js'),
 	AssetLoader = require('../../utils/asset-loader.js'),
+	UIComponents = require('../components/ui-components.js'),
 	LoadingBar = require('./loading-bar.js');
 
 function AbstractDemo(el, audioContext) {
@@ -30,6 +31,20 @@ AbstractDemo.prototype = {
 			}, this);
 			loader.loadWebAudio(this.audio.context);
 		return loader;
+	},
+	createGainControls: function(node, el) {
+		var vol = new UIComponents.Slider(el, 'gain', 0, 2, 0.1, 1, function() {
+			node.gain.value = this.value;
+		});
+	    var mute = new UIComponents.ToggleButton(el, 'mute', 'unmute',
+	        function(){
+	            mute.volume = node.gain.value;
+	            node.gain.value = vol.value = 0;
+	        },
+	        function() {
+	            node.gain.value = vol.value = mute.volume || 1; 
+	        }
+	    );
 	},
 	connectMicrophone: function(microphone) {
 		this.microphone = microphone;

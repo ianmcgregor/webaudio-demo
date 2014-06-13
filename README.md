@@ -42,9 +42,8 @@ $ bower install
 
 ### TODO:
 * Add file upload to control bar
-* DynamicsCompressorNode
-* WaveShaperNode
 * ScriptProcessorNode
+* Add methods to manage nodes on main mix
 
 ### IE polyfill:
 https://github.com/g200kg/WAAPISim

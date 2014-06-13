@@ -359,6 +359,14 @@ WebAudio.NodeFactory = function(context) {
             // seconds to increase gain by 10db from 0 to 1 - how quickly signal adapted when volume redcuced
             node.release.value = 0.25;
             return node;
+        },
+        distortion: function() {
+            var node = context.createWaveShaper();
+            // Float32Array defining curve (values are interpolated)
+            //node.curve
+            // up-sample before applying curve for better resolution result 'none', '2x' or '4x'
+            node.oversample = '2x';
+            return node;
         }
     };
 };
@@ -442,6 +450,20 @@ WebAudio.Helpers = function(context) {
         return mediaStreamSource;
     }
 
+    // create waveShaper distortion curve from 0 to 1
+    function distort(value) {
+        var k = value * 100,
+            n = 22050,
+            curve = new Float32Array(n),
+            deg = Math.PI / 180;
+
+        for (var i = 0; i < n; i++) {
+            var x = i * 2 / n - 1;
+            curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
+        }
+        return curve;
+    }
+
     return {
         fade: function(gainNode, value, duration) {
             ramp(gainNode.gain, value, duration);
@@ -454,7 +476,8 @@ WebAudio.Helpers = function(context) {
         'doppler': doppler,
         'filter': filter,
         'getFrequency': getFrequency,
-        'createMicrophoneSource': createMicrophoneSource
+        'createMicrophoneSource': createMicrophoneSource,
+        'distort' : distort
     };
 };
 

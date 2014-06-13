@@ -18,14 +18,14 @@ function Compressor(el, audioContext) {
     this.audio._gain.connect(this.node);
     this.node.connect(this.audio.context.destination);
 
-    this.panel = new UIComponents.Panel(el, 'Dynamics');
-    this.onButton = new UIComponents.ToggleButton(this.panel.el, 'TURN OFF', 'TURN ON', this.off, this.on, this);
-    this.panel.append(document.createElement('div'));
+    this.panel = new UIComponents.Panel(el, 'Compressor');
     this.sliderThreshold = new UIComponents.Slider(this.panel.el, 'threshold', -100, 0, 0.1, this.node.threshold.value, this.update, this);
     this.sliderKnee = new UIComponents.Slider(this.panel.el, 'knee', 0, 40, 0.1, this.node.knee.value, this.update, this);
     this.sliderRatio = new UIComponents.Slider(this.panel.el, 'ratio', 1, 20, 0.1, this.node.ratio.value, this.update, this);
     this.sliderAttack = new UIComponents.Slider(this.panel.el, 'attack', 0, 1, 0.0001, this.node.attack.value, this.update, this);
     this.sliderRelease = new UIComponents.Slider(this.panel.el, 'release', 0, 1, 0.0001, this.node.release.value, this.update, this);
+    this.panel.append(document.createElement('div'));
+    this.onButton = new UIComponents.ToggleButton(this.panel.el, 'TURN OFF', 'TURN ON', this.off, this.on, this);
 }
 
 Compressor.prototype = Object.create(AbstractDemo.prototype);

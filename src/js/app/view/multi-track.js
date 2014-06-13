@@ -21,21 +21,6 @@ function MultiTrack(el, audioContext) {
 MultiTrack.prototype = Object.create(AbstractDemo.prototype);
 MultiTrack.prototype.constructor = MultiTrack;
 
-MultiTrack.prototype.createGainControls = function(node, el) {
-	var vol = new UIComponents.Slider(el, 'gain', 0, 2, 0.1, 1, function() {
-		node.gain.value = this.value;
-	});
-    var mute = new UIComponents.ToggleButton(el, 'mute', 'unmute',
-        function(){
-            mute.volume = node.gain.value;
-            node.gain.value = vol.value = 0;
-        },
-        function() {
-            node.gain.value = vol.value = mute.volume || 1; 
-        }
-    );
-};
-
 MultiTrack.prototype.destroy = function() {
     AbstractDemo.prototype.destroy.call(this);
 };
