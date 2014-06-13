@@ -8,16 +8,12 @@ var AbstractDemo = require('./components/abstract-demo.js'),
 function Analyser(el, audioContext) {
     AbstractDemo.call(this, el, audioContext);
 
-    //this.sound = 
+    //this.sound =
     this.audio.add(Model.getFile('Piano').data);
     this.audio.add(Model.getFile('Drums').data);
     this.audio.add(Model.getFile('Bass').data);
     // 1024 fft size is 512 parts
     this.node = this.audio.nodeFactory.analyser(1024);
-    //this.sound.addNode(this.node);
-
-    //this.audio._gain.connect(this.node);
-    //this.node.connect(this.audio.context.destination);
     this.audio.addNode(this.node);
 
     var display = new AnalyserDisplay();
@@ -58,9 +54,9 @@ Analyser.prototype.updateSmoothing = function(value) {
     this.node.smoothingTimeConstant = parseFloat(value, 10);
 };
 
-Analyser.prototype.updateMinMax = function(value) {
-    this.node.minDecibels = sliderMin.value;
-    this.node.maxDecibels = sliderMax.value;
+Analyser.prototype.updateMinMax = function() {
+    this.node.minDecibels = this.sliderMin.value;
+    this.node.maxDecibels = this.sliderMax.value;
 };
 
 Analyser.prototype.updateFFTSize = function(value) {

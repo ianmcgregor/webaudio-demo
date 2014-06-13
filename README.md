@@ -4,7 +4,7 @@
 
 ### Reverb (Convolver Node)
 
-Either generate an impulse by specifying length and decay, or select from pre-defined impulse audio files from [this set](http://rhythminmind.net/STN/?page_id=443)
+Either generate a reverb impulse by specifying length and decay, or select from pre-defined impulse audio files from [this set](http://rhythminmind.net/STN/?page_id=443)
 
 ### Analyser Node
 
@@ -12,7 +12,7 @@ Basic `<canvas>` visualisations of the frequency range, waveform and overall lev
 
 ### Multi-Track
 
-Playing four synced audio tracks, with controls to mute or change gain of each track.
+Play four synced audio tracks, with controls to mute or change gain of each track.
 
 ### Panner Node
 
@@ -24,11 +24,27 @@ Apply filters to the sound (lowpass, highpass, bandpass, lowshelf, highshelf, pe
 
 ### Microphone (MediaStreamSource)
 
-Creates an audio source from the users microphone via `getUserMedia` and visualises the waveform of the audio input.
+Create an audio source from the users microphone via `getUserMedia` and visualises the waveform of the audio input.
 
 ### Oscillator
 
-Creates an audio source from an oscillator supporting sine, square, sawtooth and triangle waveforms.
+Create an audio source from an oscillator supporting sine, square, sawtooth and triangle waveforms.
+
+### Compressor (DynamicsCompressor Node)
+
+Apply compression to an audio source reducing its dynamic range (effectively boosting quieter sounds).
+
+### Distortion (WaveShaper Node)
+
+Apply a distortion effect to an audio source.
+
+### Delay
+
+Delay / Echo the audio input.
+
+### ScriptProcessor Node
+
+Generate or process audio with JavaScript.
 
 ## Setup
 
@@ -43,7 +59,6 @@ $ bower install
 ### TODO:
 * Add file upload to control bar
 * ScriptProcessorNode
-* Add methods to manage nodes on main mix
 * Add methods to destroy/dispose main mix
 
 ### IE polyfill:

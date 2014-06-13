@@ -249,7 +249,7 @@ Object.defineProperty(WebAudio.Sound.prototype, 'duration', {
  */
 
 WebAudio.NodeFactory = function(context) {
-
+console.log(context);
     function createFilter(type, frequency) {
         var filterNode = context.createBiquadFilter();
         filterNode.type = type;
@@ -277,17 +277,17 @@ WebAudio.NodeFactory = function(context) {
             //node.setPosition(x, y, z);
             /*
 
-            // Default for stereo is HRTF 
+            // Default for stereo is HRTF
 
 
-            // Uses a 3D cartesian coordinate system 
+            // Uses a 3D cartesian coordinate system
             node.setPosition(object.position.x/290, object.position.y/290, object.position.z/290);
             // node.setPosition(0, 0, 0);
             // node.setOrientation(1, 0, 0);
             // node.setVelocity(0, 0, 0);
 
-            // Distance model and attributes 
-            node.distanceModel = 'inverse'; // 'linear' 'inverse' 'exponential' 
+            // Distance model and attributes
+            node.distanceModel = 'inverse'; // 'linear' 'inverse' 'exponential'
             node.refDistance = 1;
             node.maxDistance = 10000;
             node.rolloffFactor = 1;
@@ -331,7 +331,7 @@ WebAudio.NodeFactory = function(context) {
         delay: function(time) {
             var node = context.createDelay();
             if(time !== undefined) {
-                node.delayTime = time;
+                node.delayTime.value = time;
             }
             return node;
         },
@@ -401,6 +401,20 @@ WebAudio.NodeFactory = function(context) {
             // up-sample before applying curve for better resolution result 'none', '2x' or '4x'
             //node.oversample = '2x';
             return node;
+        },
+        scriptProcessor: function(bufferSize, inputChannels, outputChannels, callback, callbackContext) {
+            // bufferSize 256 - 16384 (pow 2)
+            bufferSize = bufferSize || 1024;
+            inputChannels = inputChannels === undefined ? 0 : inputChannels;
+            outputChannels = outputChannels === undefined ? 1 : outputChannels;
+            var node = context.createScriptProcessor(bufferSize, inputChannels, outputChannels);
+            node.onaudioprocess = function (event) {
+                // event.inputBuffer
+                // event.outputBuffer
+                // event.playbackTime
+                callback.call(callbackContext || this, event);
+            };
+            return node;
         }
     };
 };
@@ -440,7 +454,7 @@ WebAudio.Helpers = function(context) {
     }
 
     function doppler(pannerNode, x, y, z, deltaX, deltaY, deltaZ, deltaTime) {
-        // Tracking the velocity can be done by getting the object's previous position, subtracting 
+        // Tracking the velocity can be done by getting the object's previous position, subtracting
         // it from the current position and dividing the result by the time elapsed since last frame
         pannerNode.setPosition(x, y, z);
         pannerNode.setVelocity(deltaX/deltaTime, deltaY/deltaTime, deltaZ/deltaTime);
@@ -545,7 +559,7 @@ setPositionAndVelocity : function(object, audioNode, x, y, z, dt) {
       vec.normalize();
       object.sound.panner.setOrientation(vec.x, vec.y, vec.z);
       m.n14 = mx;
-      m.n24 = my; 
+      m.n24 = my;
       m.n34 = mz;
     }
   },
@@ -568,7 +582,7 @@ setPositionAndVelocity : function(object, audioNode, x, y, z, dt) {
       this.audio.context.listener.setOrientation(vec.x, vec.y, vec.z, up.x, up.y, up.z);
 
       m.n14 = mx;
-      m.n24 = my; 
+      m.n24 = my;
       m.n34 = mz;
     }
   },

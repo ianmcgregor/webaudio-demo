@@ -42,19 +42,22 @@ AbstractDemo.prototype = {
 	            node.gain.value = vol.value = 0;
 	        },
 	        function() {
-	            node.gain.value = vol.value = mute.volume || 1; 
+	            node.gain.value = vol.value = mute.volume || 1;
 	        }
 	    );
 	},
 	connectMicrophone: function(microphone) {
 		this.microphone = microphone;
-		this.audio.helpers.createMicrophoneSource(microphone.stream, this.node);
+		this.micSource = this.audio.helpers.createMicrophoneSource(microphone.stream, this.node);
 		this.node.connect(this.audio._gain);
 	},
 	disconnectMicrophone: function() {
 		if(this.microphone) {
 			this.microphone.disconnect();
 			this.microphone = null;
+		}
+		if(this.micSource) {
+			this.micSource.disconnect(0);
 		}
 	},
 	destroy: function() {
