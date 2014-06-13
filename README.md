@@ -44,6 +44,7 @@ $ bower install
 * Add file upload to control bar
 * ScriptProcessorNode
 * Add methods to manage nodes on main mix
+* Add methods to destroy/dispose main mix
 
 ### IE polyfill:
 https://github.com/g200kg/WAAPISim

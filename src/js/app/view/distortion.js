@@ -9,8 +9,9 @@ function Distortion(el, audioContext) {
 
     // master gain > compressor > destination
     this.node = this.audio.nodeFactory.distortion();
-    this.audio._gain.connect(this.node);
-    this.node.connect(this.audio.context.destination);
+    //this.audio._gain.connect(this.node);
+    //this.node.connect(this.audio.context.destination);
+    this.audio.addNode(this.node);
 
     this.panel = new UIComponents.Panel(el, 'Distortion');
     this.slider = new UIComponents.Slider(this.panel.el, 'amount', 0, 1, 0.0001, 0, this.update, this);
@@ -36,13 +37,11 @@ Distortion.prototype.update = function() {
 };
 
 Distortion.prototype.on = function() {
-    this.audio._gain.connect(this.node);
-    this.node.connect(this.audio.context.destination);    
+    this.audio.addNode(this.node);
 };
 
 Distortion.prototype.off = function() {
-    this.audio._gain.disconnect(this.node);
-    this.audio._gain.connect(this.audio.context.destination);
+    this.audio.removeNode(this.node);
 };
 
 Distortion.prototype.destroy = function() {

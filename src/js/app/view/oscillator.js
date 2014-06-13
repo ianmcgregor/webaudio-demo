@@ -9,8 +9,9 @@ function Oscillator(el, audioContext) {
     AbstractDemo.call(this, el, audioContext);
 
     this.node = this.audio.nodeFactory.analyser(2048);
-    this.audio._gain.connect(this.node);
-    this.node.connect(this.audio.context.destination);
+    this.audio.addNode(this.node);
+    //this.audio._gain.connect(this.node);
+    //this.node.connect(this.audio.context.destination);
     
     this.pnl = new UIComponents.Panel(this.el, 'sine');
     this.dropdownType = new UIComponents.Dropdown(this.pnl.el, Model.wave, this.updateType, this);

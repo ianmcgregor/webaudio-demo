@@ -16,13 +16,16 @@ function Analyser(el, audioContext) {
     this.node = this.audio.nodeFactory.analyser(1024);
     //this.sound.addNode(this.node);
 
-    this.audio._gain.connect(this.node);
-    this.node.connect(this.audio.context.destination);
+    //this.audio._gain.connect(this.node);
+    //this.node.connect(this.audio.context.destination);
+    this.audio.addNode(this.node);
 
     var display = new AnalyserDisplay();
 
     var panelFreq = new UIComponents.Panel(el, 'Frequencies');
     this.sliderSmoothing = new UIComponents.Slider(panelFreq.el, 'Smoothing', 0, 1, 0.01, this.node.smoothingTimeConstant, this.updateSmoothing, this);
+    this.sliderMin = new UIComponents.Slider(panelFreq.el, 'Min decibels', -100, 0, 0.1, this.node.minDecibels, this.updateMinMax, this);
+    this.sliderMax = new UIComponents.Slider(panelFreq.el, 'Max decibels', -100, 0, 0.1, this.node.maxDecibels, this.updateMinMax, this);
     this.dropdownFFT = new UIComponents.Dropdown(panelFreq.el, {
         '64': 64,
         '128': 128,
@@ -53,6 +56,11 @@ Analyser.prototype.constructor = Analyser;
 
 Analyser.prototype.updateSmoothing = function(value) {
     this.node.smoothingTimeConstant = parseFloat(value, 10);
+};
+
+Analyser.prototype.updateMinMax = function(value) {
+    this.node.minDecibels = sliderMin.value;
+    this.node.maxDecibels = sliderMax.value;
 };
 
 Analyser.prototype.updateFFTSize = function(value) {

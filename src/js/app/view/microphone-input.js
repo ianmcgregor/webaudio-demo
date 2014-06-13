@@ -36,13 +36,13 @@ MicrophoneInput.prototype.getMicrophone = function() {
     });
 };
 
-MicrophoneInput.prototype.onSuccess = function(stream) {
+MicrophoneInput.prototype.onSuccess = function() {
     //this.microphone.createWebAudioSource(this.audio.context, this.audio._gain);
-    this.connectToMicrophone(stream);
-
     this.node = this.audio.nodeFactory.analyser(1024);
-    this.audio._gain.connect(this.node);
-    this.node.connect(this.audio.context.destination);
+    this.connectMicrophone(this.microphone);
+    //this.audio._gain.connect(this.node);
+    //this.node.connect(this.audio.context.destination);
+    this.audio.addNode(this.node);
 
     var display = new AnalyserDisplay();
     var panelWave = new UIComponents.Panel(this.el, 'Microphone');

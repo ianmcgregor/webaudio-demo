@@ -50,6 +50,40 @@ WebAudio.prototype = {
         }
         this._pausedAt = 0;
         this._playing = false;
+    },
+    addNode: function(node) {
+        this._node.push(node);
+        this.updateConnections();
+    },
+    removeNode: function(node) {
+        var l = this._node.length;
+        for (var i = 0; i < l; i++) {
+            if(node === this._node[i]) {
+                this._node.splice(i,1);
+            }
+        }
+        node.disconnect(0);
+        this.updateConnections();
+    },
+    updateConnections: function() {
+        var l = this._node.length;
+        if(l === 0) {
+            this._gain.connect(this.context.destination);
+            return;
+        }
+        for (var i = 0; i < l; i++) {
+            this._node[i].disconnect(0);
+            if(i === 0) {
+                this._gain.disconnect(0);
+                this._gain.connect(this._node[i]);
+            }
+            if(i === l-1) {
+                this._node[i].connect(this.context.destination);
+            }
+            else if(i > 0) {
+                this._node[i-1].connect(this._node[i]);
+            }
+        }
     }
 };
 
@@ -365,7 +399,7 @@ WebAudio.NodeFactory = function(context) {
             // Float32Array defining curve (values are interpolated)
             //node.curve
             // up-sample before applying curve for better resolution result 'none', '2x' or '4x'
-            node.oversample = '2x';
+            //node.oversample = '2x';
             return node;
         }
     };

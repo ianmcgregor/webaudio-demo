@@ -23,8 +23,6 @@ PanThreeD.prototype = Object.create(AbstractDemo.prototype);
 PanThreeD.prototype.constructor = PanThreeD;
 
 PanThreeD.prototype.update = function() {
-    //this.audio.helpers.panX(this.node, value);
-    //console.log(value);
     this.audio.helpers.pan(this.node, this.sliderX.value, this.sliderY.value, this.sliderZ.value);
 };
 
