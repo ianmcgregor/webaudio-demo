@@ -133,13 +133,13 @@ GUI.prototype.clearDemo = function(hideMicrophone, hideControls) {
 	this.playButton.reset();
 	if(this.micButton) {
 		this.micButton.reset();
-	}
 
-	if(hideMicrophone) {
-		this.micButton.el.classList.add('hidden');
-	}
-	else {
-		this.micButton.el.classList.remove('hidden');
+		if(hideMicrophone) {
+			this.micButton.el.classList.add('hidden');
+		}
+		else {
+			this.micButton.el.classList.remove('hidden');
+		}
 	}
 
 	if(hideControls) {

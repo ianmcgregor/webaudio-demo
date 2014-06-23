@@ -10,7 +10,7 @@ function Delay(el, audioContext) {
   this.sound = this.audio.add(Model.getFile('Piano').data);
   this.node = this.audio.nodeFactory.delay(0.5);
 
-  this.gainNode = this.audio.context.createGainNode();
+  this.gainNode = this.audio.context.createGain();
   this.gainNode.gain.value = 0.5;
 
   this.audio.addNode(this.gainNode);
