@@ -249,7 +249,7 @@ Object.defineProperty(WebAudio.Sound.prototype, 'duration', {
  */
 
 WebAudio.NodeFactory = function(context) {
-console.log(context);
+
     function createFilter(type, frequency) {
         var filterNode = context.createBiquadFilter();
         filterNode.type = type;
@@ -424,108 +424,85 @@ console.log(context);
  */
 
 WebAudio.Helpers = function(context) {
-
-    function ramp(param, value, duration) {
-        param.linearRampToValueAtTime(value, context.currentTime + duration);
-    }
-
-    function panXYZ(node, x, y, z) {
-        x = parseFloat(x, 10);
-        y = parseFloat(y, 10);
-        z = parseFloat(z, 10);
-        node.setPosition(x, y, z);
-    }
-
-    function panX(node, x) {
-        x = parseFloat(x, 10);
-        // x from -Math.PI/4 to Math.PI/4 (-45 to 45 deg)
-        var z = x + Math.PI / 2;
-        if (z > Math.PI / 2) {
-            z = Math.PI - z;
-        }
-        x = Math.sin(x);
-        z = Math.sin(z);
-        node.setPosition(x, 0, z);
-    }
-
-    function setCameraPosition(x, y, z) {
-        // set the audio context's listener position to match the camera position
-        context.listener.setPosition(x, y, z);
-    }
-
-    function doppler(pannerNode, x, y, z, deltaX, deltaY, deltaZ, deltaTime) {
-        // Tracking the velocity can be done by getting the object's previous position, subtracting
-        // it from the current position and dividing the result by the time elapsed since last frame
-        pannerNode.setPosition(x, y, z);
-        pannerNode.setVelocity(deltaX/deltaTime, deltaY/deltaTime, deltaZ/deltaTime);
-    }
-
-    function filter(filterNode, value, quality, gain) {
-        value = parseFloat(value, 10);
-        quality = parseFloat(quality, 10);
-        gain = parseFloat(gain, 10);
-        // Get back to the frequency value between min and max.
-        filterNode.frequency.value = getFrequency(value);
-
-        //filterNode.Q.value = quality;
-        //filterNode.gain.value = gain;
-    }
-
-    // get frequency by passing number from 0 to 1
-    function getFrequency(value) {
-        // Clamp the frequency between the minimum value (40 Hz) and half of the
-        // sampling rate.
-        var minValue = 40;
-        var maxValue = context.sampleRate / 2;
-        // Logarithm (base 2) to compute how many octaves fall in the range.
-        var numberOfOctaves = Math.log(maxValue / minValue) / Math.LN2;
-        // Compute a multiplier from 0 to 1 based on an exponential scale.
-        var multiplier = Math.pow(2, numberOfOctaves * (value - 1.0));
-        // Get back to the frequency value between min and max.
-        return maxValue * multiplier;
-    }
-
-    function createMicrophoneSource(stream, connectTo) {
-        var mediaStreamSource = context.createMediaStreamSource( stream );
-        if(connectTo) {
-            mediaStreamSource.connect(connectTo);
-        }
-        // HACK: stops moz garbage collection killing the stream
-        // see https://support.mozilla.org/en-US/questions/984179
-        if(navigator.mozGetUserMedia) {
-            window.horrible_hack_for_mozilla = mediaStreamSource;
-        }
-        return mediaStreamSource;
-    }
-
-    // create waveShaper distortion curve from 0 to 1
-    function distort(value) {
-        var k = value * 100,
-            n = 22050,
-            curve = new Float32Array(n),
-            deg = Math.PI / 180;
-
-        for (var i = 0; i < n; i++) {
-            var x = i * 2 / n - 1;
-            curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
-        }
-        return curve;
-    }
-
     return {
         fade: function(gainNode, value, duration) {
-            ramp(gainNode.gain, value, duration);
+            gainNode.gain.linearRampToValueAtTime(value, context.currentTime + duration);
         },
-        panX: function(pannerNode, value) {
-            panX(pannerNode, value * Math.PI / 4);
+        panX: function(panner, value) {
+            // x from -Math.PI/4 to Math.PI/4 (-45 to 45 deg)
+            var x = parseFloat(value, 10) * Math.PI / 4;
+            var z = x + Math.PI / 2;
+            if (z > Math.PI / 2) {
+                z = Math.PI - z;
+            }
+            x = Math.sin(x);
+            z = Math.sin(z);
+            panner.setPosition(x, 0, z);
         },
-        'setCameraPosition': setCameraPosition,
-        'pan': panXYZ,
-        'doppler': doppler,
-        'filter': filter,
-        'getFrequency': getFrequency,
-        'createMicrophoneSource': createMicrophoneSource,
-        'distort' : distort
+        pan: function(panner, x, y, z) {
+            x = parseFloat(x, 10);
+            y = parseFloat(y, 10);
+            z = parseFloat(z, 10);
+            panner.setPosition(x, y, z);
+        },
+        setCameraPosition: function(x, y, z) {
+            // set the audio context's listener position to match the camera position
+            context.listener.setPosition(x, y, z);
+        },
+        doppler: function(panner, x, y, z, deltaX, deltaY, deltaZ, deltaTime) {
+            // Tracking the velocity can be done by getting the object's previous position, subtracting
+            // it from the current position and dividing the result by the time elapsed since last frame
+            panner.setPosition(x, y, z);
+            panner.setVelocity(deltaX/deltaTime, deltaY/deltaTime, deltaZ/deltaTime);
+        },
+        filter: function(filterNode, value, quality, gain) {
+            value = parseFloat(value, 10);
+            quality = parseFloat(quality, 10);
+            gain = parseFloat(gain, 10);
+            // Get back to the frequency value between min and max.
+            filterNode.frequency.value = this.getFrequency(value);
+
+            //filterNode.Q.value = quality;
+            //filterNode.gain.value = gain;
+        },
+        getFrequency: function(value) {
+            // get frequency by passing number from 0 to 1
+            // Clamp the frequency between the minimum value (40 Hz) and half of the
+            // sampling rate.
+            var minValue = 40;
+            var maxValue = context.sampleRate / 2;
+            // Logarithm (base 2) to compute how many octaves fall in the range.
+            var numberOfOctaves = Math.log(maxValue / minValue) / Math.LN2;
+            // Compute a multiplier from 0 to 1 based on an exponential scale.
+            var multiplier = Math.pow(2, numberOfOctaves * (value - 1.0));
+            // Get back to the frequency value between min and max.
+            return maxValue * multiplier;
+        },
+        createMicrophoneSource: function(stream, connectTo) {
+            var mediaStreamSource = context.createMediaStreamSource( stream );
+            if(connectTo) {
+                mediaStreamSource.connect(connectTo);
+            }
+            // HACK: stops moz garbage collection killing the stream
+            // see https://support.mozilla.org/en-US/questions/984179
+            if(navigator.mozGetUserMedia) {
+                window.horrible_hack_for_mozilla = mediaStreamSource;
+            }
+            return mediaStreamSource;
+        },
+        distort: function(value) {
+            // create waveShaper distortion curve from 0 to 1
+            var k = value * 100,
+                n = 22050,
+                curve = new Float32Array(n),
+                deg = Math.PI / 180;
+
+            for (var i = 0; i < n; i++) {
+                var x = i * 2 / n - 1;
+                curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
+            }
+            return curve;
+        }
     };
 };
 
