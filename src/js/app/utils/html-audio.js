@@ -86,4 +86,6 @@ Object.defineProperty(HTMLAudio.prototype, 'sound', {
 	}
 });
 
-module.exports = HTMLAudio;
+if (typeof module === 'object' && module.exports) {
+    module.exports = HTMLAudio;
+}

@@ -152,4 +152,6 @@ AudioManager.prototype = {
 	}
 };
 
-module.exports = AudioManager;
+if (typeof module === 'object' && module.exports) {
+    module.exports = AudioManager;
+}

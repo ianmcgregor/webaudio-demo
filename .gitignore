@@ -48,3 +48,4 @@ dploy.yaml
 /node_modules/
 /src/vendor/
 /audio/
+/temp/
