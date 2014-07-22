@@ -29,7 +29,8 @@ var src = './src',
 
 // alias libs to short names
 var alias = {
-  signals: vendors+'js-signals/dist/signals.js'
+  signals: vendors+'js-signals/dist/signals.js',
+  hasher: vendors+'hasher/dist/js/hasher.js'
 };
 
 //log

@@ -25,13 +25,14 @@ WebAudio.prototype = {
         this._sound[this._sound.length-1].loop = this._loop;
         return this._sound[this._sound.length-1];
     },
-    play: function() {
+    play: function(delay) {
         var maxDuration = -1,
             longestSound;
+
         for (var i = 0; i < this._sound.length; i++) {
             this._sound[i].stop();
             this._sound[i].connect(this._gain);
-            this._sound[i].play(0, this._pausedAt / 1000);
+            this._sound[i].play(delay || 0, this._pausedAt / 1000);
             if(this._sound[i].duration > maxDuration) {
                 maxDuration = this._sound[i].duration;
                 longestSound = this._sound[i];
@@ -58,6 +59,7 @@ WebAudio.prototype = {
     addNode: function(node) {
         this._node.push(node);
         this.updateConnections();
+        return node;
     },
     removeNode: function(node) {
         var l = this._node.length;

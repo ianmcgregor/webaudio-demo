@@ -113,7 +113,7 @@ UIComponents.Button = function(parent, label, fn, context, key) {
         input.classList.add('Button', 'Button--default');
     if(typeof fn === 'function') {
         var click = function() {
-            fn.call(context || this);
+            fn.call(context || this, this);
         };
         input.addEventListener('click', click);
     }

@@ -33,25 +33,32 @@ App.prototype.load = function() {
 	this.loader.crossOrigin = true;
 
 	Model.extension = this.audio.getExtension();
-	var files = Model.audioFiles;
-	for (var i in files) {
-		var file = files[i];
-		file.url = file.url + Model.extension;
-		this.loader.add(file.url);
-	}
-
+	this.addFiles(Model.audioFiles);
+	this.addFiles(Model.drumKit);
 	this.loader.onProgress.add(this.gui.updateLoadProgress, this.gui);
 	this.loader.onComplete.add(this.loadComplete, this);
 	this.loader.start();
 };
 
+App.prototype.addFiles = function(files) {
+	for (var i in files) {
+		var file = files[i];
+		file.url = file.url + Model.extension;
+		this.loader.add(file.url);
+	}
+};
+
 App.prototype.loadComplete = function() {
-	var files = Model.audioFiles;
+	this.addData(Model.audioFiles);
+	this.addData(Model.drumKit);
+	this.gui.init(this.audio.webAudioContext);
+};
+
+App.prototype.addData = function(files) {
 	for (var i in files) {
 		var file = files[i];
 		file.data = this.loader.get(file.url).data;
 	}
-	this.gui.init(this.audio.webAudioContext);
 };
 
 new App();

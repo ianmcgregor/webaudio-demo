@@ -1,7 +1,8 @@
 'use strict';
 
 var audioFiles = require('../config/audio-files.json'),
-	impulse = require('../config/impulse-response.json');
+	impulse = require('../config/impulse-response.json'),
+	drumKit = require('../config/drum-kit.json');
 
 var model = {
     extension: '',
@@ -10,6 +11,7 @@ var model = {
 		return model.audioFiles[key];
 	},
 	impulse: impulse,
+	drumKit: drumKit,
 	filter : {
         'lowpass': 0,
         'highpass': 1,

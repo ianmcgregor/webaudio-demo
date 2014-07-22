@@ -5,6 +5,7 @@
     "normalize-css": "latest",
     "suit-base": "latest",
     "suit-components-button": "~3.2.0",
-    "js-signals": "1.0.0"
+    "js-signals": "1.0.0",
+    "hasher": "~1.2.0"
   }
 }

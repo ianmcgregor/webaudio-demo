@@ -18,7 +18,7 @@ sup{top:-.5em}
 sub{bottom:-.25em}
 img{border:0}
 svg:not(:root){overflow:hidden}
-hr{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;height:0}
+hr{-webkit-box-sizing:content-box;box-sizing:content-box;height:0}
 pre{overflow:auto}
 code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
 button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
@@ -28,9 +28,9 @@ button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appe
 button[disabled],html input[disabled]{cursor:default}
 button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
 input{line-height:normal}
-input[type=checkbox],input[type=radio]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0}
+input[type=checkbox],input[type=radio]{-webkit-box-sizing:border-box;box-sizing:border-box;padding:0}
 input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}
-input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type=search]{-webkit-appearance:textfield;-webkit-box-sizing:content-box;box-sizing:content-box}
 input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
 legend{border:0;padding:0}
 textarea{overflow:auto}
@@ -56,12 +56,12 @@ canvas{max-width:100%}
 /*! Components */
  /*! suit-button v3.2.0 | MIT License | github.com/suitcss */
 :root{--border-width-Button:1px;--border-color-Button:currentcolor;--color-Button:inherit;--font-Button:inherit;--padding-Button:.4em .75em;--opacity-Button-disabled:.6}
-.Button{-webkit-appearance:none;background:0 0;border-color:var(--border-color-Button);border-style:solid;border-width:var(--border-width-Button);-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:var(--color-Button);cursor:pointer;display:inline-block;font:var(--font-Button);line-height:normal;margin:0;padding:var(--padding-Button);position:relative;text-align:center;text-decoration:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;white-space:normal}
+.Button{-webkit-appearance:none;background:0 0;border-color:var(--border-color-Button);border-style:solid;border-width:var(--border-width-Button);-webkit-box-sizing:border-box;box-sizing:border-box;color:var(--color-Button);cursor:pointer;display:inline-block;font:var(--font-Button);line-height:normal;margin:0;padding:var(--padding-Button);position:relative;text-align:center;text-decoration:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;white-space:normal}
 .Button::-moz-focus-inner{border:0;padding:0}
 .Button:active,.Button:focus,.Button:hover{text-decoration:none}
 .Button.is-disabled,.Button:disabled{cursor:default;opacity:var(--opacity-Button-disabled)}
 .Title{padding-top:.5em;text-align:center}
-.Panel{display:inline-block;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;width:98%;margin:1%;padding:10px;background:#eee;border:1px solid #ddd}
+.Panel{display:inline-block;-webkit-box-sizing:border-box;box-sizing:border-box;width:98%;margin:1%;padding:10px;background:#eee;border:1px solid #ddd}
 .Panel--error{background:#e00;color:#fff;font-weight:700}
 .Slider{display:inline-block;min-width:240px;width:22%;padding:.5em 0;max-width:100%}
 .Slider-label{display:inline-block;min-width:20%}
@@ -70,7 +70,7 @@ canvas{max-width:100%}
 .Slider--large{font-size:1.5em;padding:1em 0;width:800px}
 .Slider--large>.Slider-label{min-width:10%}
 .Slider--large>.Slider-input{min-width:78%}
-.Button--default{border-color:#d9d9d9 #d9d9d9 #ccc;border-radius:2px;color:#444;background-color:#ddd;font-size:1.5em;padding:.75em 1.5em}
+.Button--default{border-color:#d9d9d9 #d9d9d9 #ccc;border-radius:2px;color:#444;background-color:#ddd;font-size:1.5em;padding:.75em 1.5em;margin:1px}
 .Button--default.is-pressed,.Button--default:active,.Button--default:focus,.Button--default:hover{border-color:#c6c6c6 #c6c6c6 #bbb;color:#222;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.2);background-color:#f5f5f5}
 .Button--default:focus{border-color:#069;outline:0}
 .Button--default.is-pressed,.Button--default:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.2);box-shadow:inset 0 1px 2px rgba(0,0,0,.2);background-color:#ccc}

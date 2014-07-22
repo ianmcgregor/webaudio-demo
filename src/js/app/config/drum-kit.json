@@ -1,0 +1,6 @@
+{
+    "Kick": { "url": "audio/kit/kick", "loop": false, "data": null },
+    "Snare": { "url": "audio/kit/snare", "loop": false, "data": null },
+    "HiHat": { "url": "audio/kit/hihat", "loop": false, "data": null },
+    "Clap": { "url": "audio/kit/clap", "loop": false, "data": null }
+}
